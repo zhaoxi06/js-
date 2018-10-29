@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3练习</title>
+<style type="text/css">
+body{background: #D8D8D8;padding: 30px;}
+div{
+	width: 300px;
+	padding: 10px 15px 10px 10px;
+	background:white;
+	float: left;
+}
+#div1{
+	border-radius: 8px;
+	box-shadow: 0 0 5px #8C8989;
+	transform: rotate(9deg);
+}
+#div1:hover{
+	animation: tobig 3s;
+}
+img{
+	width: 100%;
+}
+@keyframes tobig{
+	0% {width: 300px;}
+	50% {width: 400px;}
+	100% {widows: 300px;}
+}
+
+#div2{
+	height: 240px;
+	background-image: url(img/1.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px #ED5050;
+}
+#div2 p{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#div2 p:hover{
+	overflow: visible;
+	text-overflow: inherit;
+}
+</style>
+</head>
+<body>
+<!-- <div id="div1">
+	<img id="img1" src="img/littleboy.jpg">
+	<p>深邃的眼睛，眺望着远方，你在想哪个小姑娘呢？</p>
+</div> -->
+<div id="div2">
+	<p>看，鱼在我手上。看，鱼在我手上。看，鱼在我手上。</p>
+</div>
+</body>
+</html>

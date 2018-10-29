@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,ul,li,img,p,a{padding: 0;margin: 0;}
+li{list-style: none;}
+body{font:20px arial;}
+#container{
+	width: 700px;
+	height: 402px;
+	margin: 10px auto;
+}
+ul{
+	width: 116px;
+	height: 400px;
+	float: left;
+	border:1px solid #693;
+}
+ul li{
+	width: 100%;
+	height: 98px;
+	line-height: 100px;
+	text-align: center;
+	border:1px solid #693;
+	background: green;
+	color: white;
+}
+li.active{
+	background: orange;
+}
+#show{
+	width: 580px;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+#show img{
+	width: 100%;
+	height: 100%;
+}
+#show p{
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	background-color: rgba(0,0,0,0.3);
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+#show p a{
+	display: inline-block;
+	color: white;
+	border-right: 2px solid;
+	text-align: center;
+}
+a.active{
+	background-color: rgba(255,255,255,0.4);
+}
+#show p a:last-child{
+	border-right: 0;
+}
+</style>
+</head>
+<body>
+<div id="container">
+	<ul>
+		<li class="active">第一组</li>
+		<li>第二组</li>
+		<li>第三组</li>
+		<li>第四组</li>
+	</ul>
+	<div id="show">
+		<img src="">
+		<p><!-- 
+			<a>1</a>
+			<a>2</a> -->
+		</p>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oLeftChoose = document.getElementsByTagName("ul")[0];
+	var aLiList = oLeftChoose.getElementsByTagName("li");
+	var oImg = document.getElementsByTagName("img")[0];
+	var oP = document.getElementsByTagName("p")[0];
+	var data = {
+			one: ["img/1.jpg","img/2.jpg"],
+			two: ["img/2.jpg","img/1.jpg","img/3.jpg"],
+			thr: ["img/3.jpg","img/2.jpg","img/3.jpg","img/4.jpg"],
+			four: ["img/4.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/littleboy.jpg"]
+	}
+	var pw = oP.clientWidth;
+	//初始化 
+	oImg.src = data.one[0];
+	createA(data.one.length);
+
+	var imgUrl;
+	oldLi = aLiList[0];
+	for(var i=0;i<aLiList.length;i++){
+		aLiList[i].index = i;
+		aLiList[i].onmouseover = function(){
+			oldLi.className = "";
+			this.className = "active";
+			oldLi = this;
+			imgUrl = chooseOne(this.index);
+			oImg.src = imgUrl[0];
+			var imgLen = imgUrl.length;
+			createA(imgLen);
+			tabImg(imgUrl);
+		}
+	}
+	function chooseOne(index){
+		var url;
+		if(!index){
+			url = data.one;
+		}else if(index==1){
+			url = data.two;
+		}else if(index==2){
+			url = data.thr;
+		}else{
+			url = data.four;
+		}
+		return url;
+	}
+	var aTab,oldTab;
+	function createA(len){
+		var aw = (pw-2*len)/len;
+		var str = '';
+		for(var i=0;i<len;i++){
+			str += "<a style='width:"+aw+"px;'>"+(i+1)+"</a>";
+		}
+		oP.innerHTML = str;
+		aTab = oP.getElementsByTagName("a");
+		aTab[0].className = "active";
+		oldTab = aTab[0];
+	}
+	function tabImg(imgUrl){
+		for(var i=0;i<aTab.length;i++){
+			aTab[i].index = i;
+			aTab[i].onmouseover = function(){
+				oldTab.className = '';
+				this.className = 'active';
+				oldTab = this;
+				oImg.src = imgUrl[this.index];
+			}
+		}
+	}
+}
+</script>
+</body>
+</html>

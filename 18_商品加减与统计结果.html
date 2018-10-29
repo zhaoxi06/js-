@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+</head>
+<body>
+<ul>
+	<li>
+		<button class="cutBtn">-</button>
+		<span class="count">0</span>
+		<button class="addBtn">+</button>
+		<span>单价：<em class="price">12.5</em> 元</span>
+		<span>小计：<em class="total">0</em> 元</span>
+	</li>
+	<li>
+		<button class="cutBtn">-</button>
+		<span class="count">0</span>
+		<button class="addBtn">+</button>
+		<span>单价：<em class="price">2.5</em> 元</span>
+		<span>小计：<em class="total">0</em> 元</span>
+	</li>
+	<li>
+		<button class="cutBtn">-</button>
+		<span class="count">0</span>
+		<button class="addBtn">+</button>
+		<span>单价：<em class="price">10</em> 元</span>
+		<span>小计：<em class="total">0</em> 元</span>
+	</li>
+	<li>
+		<button class="cutBtn">-</button>
+		<span class="count">0</span>
+		<button class="addBtn">+</button>
+		<span>单价：<em class="price">8</em> 元</span>
+		<span>小计：<em class="total">0</em> 元</span>
+	</li>
+	<li>
+		<button class="cutBtn">-</button>
+		<span class="count">0</span>
+		<button class="addBtn">+</button>
+		<span>单价：<em class="price">27.8</em> 元</span>
+		<span>小计：<em class="total">0</em> 元</span>
+	</li>
+</ul>
+<span>商品合计共：<em id="subCount">0</em> 件</span><br>
+<span>共计消费了：<em id="subTotal">0</em> 元</span><br>
+<span>其中最贵的商品单价是：<em id="expnesive">0</em> 元</span>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aCutBtn = document.getElementsByClassName("cutBtn");
+	var aAddBtn = document.getElementsByClassName("addBtn");
+	var aCount = document.getElementsByClassName("count");
+	var aPrice = document.getElementsByClassName("price");
+	var aTotal = document.getElementsByClassName("total");
+	var subCount = document.getElementById("subCount");
+	var subTotal = document.getElementById("subTotal");
+	var expnesive = document.getElementById("expnesive");
+	var len = aCutBtn.length;
+	var count = 0;
+	var total = 0;
+	var expnesivePrice = 0;
+	for(var i=0;i<len;i++){
+		aCutBtn[i].index = i;
+		aCutBtn[i].onclick = function(){
+			oCount = Number(aCount[this.index].innerHTML);
+			oPrice = Number(aPrice[this.index].innerHTML);
+			oTotal = Number(aTotal[this.index].innerHTML);
+			if(!oCount) return;
+			aCount[this.index].innerHTML --;
+			aTotal[this.index].innerHTML = oTotal - oPrice;
+			count --;
+			subCount.innerHTML = count;
+			total = total - oPrice;
+			subTotal.innerHTML = total;
+			if(oCount-1 ==0){
+				expnesive.innerHTML = findExpnesivePrice();
+			}
+		}
+		aAddBtn[i].index = i;
+		aAddBtn[i].onclick = function(){
+			oCount = Number(aCount[this.index].innerHTML);
+			oPrice = Number(aPrice[this.index].innerHTML);
+			oTotal = Number(aTotal[this.index].innerHTML);
+			aCount[this.index].innerHTML ++;
+			aTotal[this.index].innerHTML = oTotal + oPrice;
+			count ++;
+			subCount.innerHTML = count;
+			total = total + oPrice;
+			subTotal.innerHTML = total;
+			if(expnesivePrice<oPrice) expnesivePrice = oPrice;
+			expnesive.innerHTML = expnesivePrice;
+		}
+	}
+
+	function findExpnesivePrice(){
+		var max = 0;
+		for(var i=0;i<len;i++){
+			if(Number(aCount[i].innerHTML)){
+				if(max<Number(aPrice[i].innerHTML))
+					max = aPrice[i].innerHTML;
+			}
+		}
+		return max;
+	}
+}
+</script>
+</body>
+</html>

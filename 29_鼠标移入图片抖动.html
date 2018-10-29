@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+ul{
+	margin: 200px 80px;
+	position: relative;
+}
+li{
+	width: 100px;
+	height: 80px;
+	list-style: none;
+	position: absolute;
+	top: 0;
+	margin-right: 10px;
+}
+li img{
+	width: 100px;
+	height: 80px;
+}
+</style>
+</head>
+<body>
+<ul>
+	<li><img src="img/1.jpg"></li>
+	<li><img src="img/2.jpg"></li>
+	<li><img src="img/3.jpg"></li>
+	<li><img src="img/4.jpg"></li>
+	<li><img src="img/littleboy.jpg"></li>
+	<li><img src="img/1.jpg"></li>
+	<li><img src="img/2.jpg"></li>
+	<li><img src="img/3.jpg"></li>
+	<li><img src="img/4.jpg"></li>
+</ul>
+
+<script type="text/javascript">
+window.onload = function () {
+	var aLi = document.getElementsByTagName("li");
+	
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].style.left = i*110+"px";
+		aLi[i].onOff = true;
+		aLi[i].onmouseover = function(){
+			if(!this.onOff) return;
+			var dir = 10;
+			var _this = this;
+			clearInterval(_this.timer);
+			if(_this.onOff){
+				_this.timer = setInterval(function(){
+					dir = -dir;
+					_this.style.top = dir +"px";
+					if(dir == 0){
+						clearInterval(_this.timer);
+						_this.onOff = true;
+					}
+					if(dir>0){
+						dir --;
+					}
+				},80);
+			}
+			_this.onOff = false;
+		}
+	}
+}
+</script>
+</body>
+</html>

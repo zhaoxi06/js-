@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,p,img,button,ul,li{padding: 0;margin: 0;}
+li{list-style: none;}
+#imgShow{
+	width: 480px;
+	height: 320px;
+	border:10px solid #ccc; 
+	position: relative;
+	margin: 100px auto;
+}
+#imgShow img{
+	width: 100%;
+	height: 100%;
+}
+.textShow{
+	width: 100%;
+	height: 30px;
+	background-color: rgba(255,255,255,0.2);
+	color: #333;
+	line-height:30px;
+	text-align: center; 
+	position: absolute;
+}
+.text{
+	top: 0;
+	left: 0;
+}
+.num{
+	bottom: 0;
+	left: 0;
+}
+.next{
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 36px;
+	font-weight: bold;
+	border: 5px solid #ccc;
+	color: white;
+	position: absolute;
+	background: #000;
+	filter: alpha(opacity:30);
+	opacity: 0.3;
+}
+.next:hover{
+	filter: alpha(opacity:80);
+	opacity: 0.8;
+}
+#prev{
+	top: 140px;
+	left: 5px;
+}
+#next{
+	top: 140px;
+	right: 5px;
+}
+#thumbnail{
+	width: 96px;
+	height: 20px;
+	position: absolute;
+	bottom: 20px;
+	left: 192px;
+}
+#thumbnail li{
+	width: 20px;
+	height: 20px;
+	margin: 0 1px;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	position: relative;
+	float: left;
+}
+.active{
+	background: orange;
+	filter: alpha(opacity:80);
+	opacity: 0.8;
+}
+.thumb{
+	width: 100px;
+	height: 80px;
+	position: absolute;
+	border:5px solid white;
+	bottom: 25px;
+	left: -44px;
+	display: none;
+	background-size: cover;
+}
+</style>
+</head>
+<body>
+	<div id="imgShow">
+		<img src="img/1.jpg">
+		<div id="prev" class="next"><</div>
+		<div id="next" class="next">></div>
+		<ul id="thumbnail">
+			<li class="active">
+				<div class="thumb"></div>
+			</li>
+			<li>
+				<div class="thumb"></div>
+			</li>
+			<li>
+				<div class="thumb"></div>
+			</li>
+			<li>
+				<div class="thumb"></div>
+			</li>
+		</ul>
+	</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var urlArr = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg"]
+
+	var prev = document.getElementById("prev");
+	var next = document.getElementById("next");
+	var imgShow = document.getElementsByTagName("img")[0];
+	var oUl = document.getElementById("thumbnail");
+	var aLi = oUl.getElementsByTagName("li");
+	//定义初始为第一张
+	var nowIndex = 0; 
+	var oldLi = aLi[0];
+	var len = urlArr.length;
+	next.onclick = function(){
+		nowIndex ++;
+		nowIndex %= len;
+		switchPic();
+	}
+	prev.onclick = function(){
+		nowIndex == 0? nowIndex=len-1 : nowIndex--;
+		nowIndex %= len;
+		switchPic();
+	}
+
+	function switchPic(){
+		imgShow.src = urlArr[nowIndex];
+		aLi[nowIndex].setAttribute("class","active");
+		oldLi.setAttribute("class","");
+		oldLi = aLi[nowIndex];
+	}
+
+	var len = aLi.length;
+	var arrDiv = [];
+	for(var i=0;i<len;i++){
+		arrDiv.push(aLi[i].getElementsByClassName("thumb")[0]);
+		arrDiv[i].style.backgroundImage = "url("+urlArr[i]+")";
+		aLi[i].index = i;
+		aLi[i].onmouseover = function(){
+			arrDiv[this.index].style.display = "block";
+		}
+		aLi[i].onmouseout = function(){
+			arrDiv[this.index].style.display = "";
+		}
+		aLi[i].onclick = function(){
+			nowIndex = this.index;
+			switchPic();
+		}
+		
+	}
+}
+</script>
+</body>
+</html>

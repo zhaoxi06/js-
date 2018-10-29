@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li,div{padding: 0;margin: 0;}
+#box{
+	width: 402px;
+	height: 242px;
+	margin: 300px 100px;
+	position: relative;
+	overflow: hidden;
+}
+#cover{
+	width: 402px;
+	height: 42px;
+	position: absolute;
+	top: 200px;
+	left: -402px;
+	background: orange;
+}
+ul{
+	width: 400px;
+	height: 40px;
+	position: absolute;
+	top: 200px;
+	left: 0;
+	border: 1px solid;
+}
+li{
+	list-style: none;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	position: absolute;
+	top: 0px;
+	opacity: 1;
+}
+</style>
+</head>
+<body>
+<div id="box">
+	<div id="cover"></div>
+	<ul>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+		<li>+1</li>
+	</ul>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var oUl = document.getElementsByTagName("ul")[0];
+	var aLi = document.getElementsByTagName("li");
+	var oCover = document.getElementById("cover");
+
+	var len = aLi.length;
+	for(var i=0;i<len;i++){
+		aLi[i].style.left = i*40 +"px";
+	}
+	var timer;
+	var num = 0;
+	var onOff = true;
+	oUl.onclick = function(){
+		if(!onOff) return;
+		doMove(oCover,"left",10,0);
+		clearInterval(timer);
+		timer = setInterval(function(){
+			doMove(aLi[num],"top",20,-200);
+			changeOpacity(aLi[num],1,0);
+			num ++;
+			num %= len;
+			if(!num){
+				clearInterval(timer);
+				setTimeout(function(){
+					initData();
+					onOff = true;
+				},2000)
+			}
+		},100);
+		onOff = false;
+	}
+	function changeOpacity(elem,init,final){
+		var opa = init;
+		elem.timer1 = setInterval(function(){
+			opa = opa - 0.1;
+			if(opa<final){
+				opa = final;
+			}
+			elem.style.opacity = opa;
+			if(opa == final){
+				clearInterval(elem.timer1);
+			}
+		},30);
+	}
+
+	function initData(){
+		for(var i=0;i<len;i++){
+			aLi[i].style.top = 0;
+			aLi[i].style.opacity = 1;
+		}
+		oCover.style.left = "-402px";
+	}
+
+	function doMove(elem,attr,dir,target,endFn){
+		dir = parseInt(getStyle(elem,attr))>target?-dir:dir;
+		clearInterval(elem.timer);
+		elem.timer = setInterval(function(){
+			var speed = parseInt(getStyle(elem,attr)) + dir;
+			if(speed>target&&dir>0 || speed<target&&dir<0){
+				speed = target;
+			}
+			elem.style[attr] = speed + "px";
+			if(speed==target){
+				clearInterval(elem.timer);
+				endFn && endFn()
+			}
+		},30);
+	}
+
+	function getStyle(elem,attr){
+		return elem.currentStyle?elem.currentStyle[attr]:getComputedStyle(elem)[attr];
+	}
+
+}
+</script>
+</body>
+</html>

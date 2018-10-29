@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度一下，你就知道</title>
+<style type="text/css">
+html,body,nav,a,img,div,input,button,footer,p,i,ul,li{padding: 0;margin: 0;}
+li{list-style:none;}
+body{font:12px arial;}
+#search,#qr_code,#links,footer{text-align: center;}
+.btn{
+	border: 0;
+	background-color: #3388FF;
+	color: #fff;
+}
+nav{
+	height: 40px;
+	text-align: right;
+	margin-top: 20px;
+	margin-right: 16px;
+	font:bold 12px Arial;
+}
+nav a{
+	color:#000;
+	margin-right:18px;
+}
+nav a:hover{
+	color: #2319DC;
+}
+nav button{
+	padding: 5px;
+}
+#search{
+	height: 186px;
+	margin:0 auto;
+	font-size: 0;
+}
+#search img{
+	width: 270px;
+	height: 129px;
+}
+#search p{
+	height: 36px;
+	margin-top: 21px;
+}
+.search_text{
+	width: 540px;
+	height: 34px;
+	border: 1px solid #B8B8B8;
+	font-size: 16px;
+}
+.search_btn{
+	padding: 11px 20px;
+	line-height: 14px;
+	font-size: 16px;
+}
+#qr_code{
+	margin-top: 170px;
+	height: 84px;
+}
+#qr_code p{
+	font: 10px;
+}
+#links{
+	height: 14px;
+	margin-top: 22px;
+}
+
+#links a{
+	color: #999999;
+	margin-left: 25px;
+}
+#links #marginl{margin-left: 0px;}
+footer{
+	height: 14px;
+	margin-top: 10px;
+	color: #999;
+}
+footer a{
+	color: #999;
+}
+
+#set_bg ul{
+	width: 74px;
+	height: 96px;
+	border: 1px solid #D1D1D1;
+	margin-left:100px;
+	box-shadow: 0 0 1px 1px #ccc;
+}
+#set_bg li{
+	line-height: 24px;
+	text-align: center;
+	font-weight: normal;
+}
+</style>
+</head>
+<body>
+	<nav>
+		<div>
+			<a href="">新闻</a> 
+			<a href="">hao123</a>
+			<a href="">地图</a>
+			<a href="">视频</a>
+			<a href="">贴吧</a>
+			<a href="">学术</a>
+			<a href="">登录</a>
+			<a href="">设置</a>
+			<button class="btn">更多产品</button>
+		</div>
+		<div id="set_bg">
+			<ul>
+				<li>搜索设置</li>
+				<li>高级搜索</li>
+				<li>关闭预测</li>
+				<li>隐私设置</li>
+			</ul>
+		</div>
+	</nav>
+	<div id="search">
+		<img src="img/bd_logo1.png" alt="点击一下，了解更多" title="点击一下，了解更多">
+		<p>
+			<input class="search_text" type="text" name="search" />
+			<input class="search_btn btn" type="button" name="bd" value="百度一下" />
+		</p>
+	</div>
+	<div id="qr_code">
+		<img src="img/QR_code.png">
+		<p>百度</p>
+	</div>
+	<div id="links">
+		<a id="marginl" href="">把百度设为首页</a> 
+		<a href="">关于百度</a> 
+		<a href="">About Baidu</a> 
+		<a href="">百度推广</a>
+	</div>
+	<footer>
+		<p>@2018 Baidu
+			<a href="">使用百度前必读</a> 
+			<a href="">意见反馈</a>
+			京ICP证030173号
+			<i></i>
+			京公网安备111111111111111号
+			<i></i>
+		</p>
+	</footer>
+</body>
+</html>

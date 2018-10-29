@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+</head>
+<body>
+<p>
+	请输入QQ号码：
+	 <input type="text" name="qqNum">
+	 <input type="button" name="judge" value="判断">
+</p>
+<p>
+1、有没有输入<br/>
+2、输入的是不是数字<br/>
+3、不能有0在前面<br/>
+4、不能是小数<br/>
+5、输入的数字必须在5位以上、10位以内<br/>
+</p>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aInp = document.getElementsByTagName("input");
+	aInp[1].onclick = function(){
+		value = aInp[0].value;
+		if(!value.length){ 
+			alert("输入为空");
+			return;
+		}
+		if(isNaN(value)){ 
+			alert("输入的不是数字");
+			return;
+		}
+		if(Number(value.charAt(0))==0) {
+			alert("第一位不能是0");
+			return;
+		}
+		if(parseInt(value)!=parseFloat(value)) {
+			alert("输入的不能是小数");
+			return;
+		}
+		if(value.length<5 || value.length>10) {
+			alert("QQ号码至少5位且不小于10位数字");
+			return;
+		}
+		alert("输入的QQ号码符合规则");
+	}
+}
+</script>
+</body>
+</html>

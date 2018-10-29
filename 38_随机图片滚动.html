@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li,img{padding: 0;margin: 0;}
+li{list-style: none;}
+ul{
+	width: 400px;
+	height: 560px;
+	margin: 30px auto;
+}
+li{
+	width: 180px;
+	height: 120px;
+	margin: 10px;
+	float: left;
+	overflow: hidden;
+	position: relative;
+}
+li img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+</style>
+<script type="text/javascript" src="js/usefulFun.js"></script>
+</head>
+<body>
+<ul>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+	<li>
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+		<img src="img/1.jpg">
+	</li>
+</ul>
+
+<script type="text/javascript">
+window.onload= function(){
+	var aLi = document.getElementsByTagName("li");
+	var arrImg = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg","img/6.jpg","img/7.jpg","img/8.jpg"];
+
+	var len = aLi.length;
+	var num = 0;
+	for(var i=0;i<len;i++){
+		aLi[i].onOff = 1;
+		var aImg = aLi[i].getElementsByTagName("img");
+		for(var j=0;j<aImg.length;j++){
+			aImg[j].style.top = j*120 + "px";
+			aImg[j].src = arrImg[num%=8];
+			num ++;
+		}
+	}
+	// var dir = 1;
+	function roll(num){
+		var aImg = aLi[num].getElementsByTagName("img");
+		doMove(aImg[0],"top",8,-120);
+		doMove(aImg[1],"top",8,0);
+		doMove(aImg[2],"top",8,120,function(){
+			setTimeout(function(){
+				if(aLi[num].onOff>0){
+					doMove(aImg[0],"top",10,-240);
+					doMove(aImg[1],"top",10,-120);
+					doMove(aImg[2],"top",10,0,function(){
+						aLi[num].onOff = -aLi[num].onOff;
+					});
+				}else{
+					doMove(aImg[0],"top",10,0);
+					doMove(aImg[1],"top",10,120);
+					doMove(aImg[2],"top",10,240,function(){
+						aLi[num].onOff = -aLi[num].onOff;
+					});
+				}
+			},150)
+		})
+	}
+	setInterval(function(){
+		var num = Math.floor(Math.random()*len);
+		// var num = 0;
+		roll(num);
+	},1000)
+	
+}
+</script>
+</body>
+</html>

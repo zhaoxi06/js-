@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+li{list-style: none;}
+.box{
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 24px;
+	color: white;
+	float: left;
+}
+</style>
+</head>
+<body>
+	<button>自动生成10个</button>
+	<ul id="list"></ul>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oBtn = document.getElementsByTagName("button")[0];
+	var oList = document.getElementById("list");
+	oBtn.onclick = function(){
+		for(var i=0;i<10;i++){
+			var oLi = document.createElement("li");
+			oLi.setAttribute("class","box");
+			oLi.innerHTML = i;
+			oList.appendChild(oLi);
+			//背景变色
+			if(i%4==0){
+				oLi.style.background = "red"; 
+			}
+			if(i%4==1){
+				oLi.style.background = "yellow"; 
+			}
+			if(i%4==2){
+				oLi.style.background = "orange"; 
+			}
+			if(i%4==3){
+				oLi.style.background = "green"; 
+			}
+		}
+	}
+}
+</script>
+</body>
+</html>

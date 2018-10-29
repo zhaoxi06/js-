@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li{padding: 0;margin: 0;}
+ul{
+	margin:10px;
+	position: relative;
+}
+li{
+	list-style: none;
+	width: 40px;
+	height: 40px;
+	background: orange;
+	position: absolute;
+	top: 0;
+}
+</style>
+
+</head>
+<body>
+<ul>
+</ul>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oUl = document.getElementsByTagName("ul")[0];
+	var aLi = document.getElementsByTagName("li");
+
+	var len = 20;
+	var str = '';
+	for(var i=0;i<len;i++){
+		str += "<li style='left:"+50*i+"px;'></li>";
+	}
+	oUl.innerHTML = str;
+
+	var i = 0;
+	var timer;
+	var num = 0;
+	var onOff = true;
+	document.onclick = function(){
+		clearInterval(timer);
+		timer = setInterval(function(){
+			if(onOff){
+				doMove(aLi[num],"top",30,400,50);
+			}else{
+				doMove(aLi[num],"top",30,0,50);
+			}
+			num ++;
+			if(num==len){
+				clearInterval(timer);
+				num = 0;
+				onOff = !onOff;
+			}
+		},100);
+		
+	}
+	function doMove(elem,attr,dir,target,delay,endFn){
+		dir = parseInt(getStyle(elem,attr))>target?-dir:dir;
+		clearInterval(elem.timer);
+		elem.timer = setInterval(function(){
+			var speed = parseInt(getStyle(elem,attr)) + dir;
+			if(speed>target&&dir>0 || speed<target&&dir<0){
+				speed = target;
+			}
+			elem.style[attr] = speed + "px";
+			if(speed==target){
+				clearInterval(elem.timer);
+				endFn && endFn();
+			}
+		},delay);
+	}
+
+	function getStyle(elem,attr){
+		if(elem.currentStyle){
+			return elem.currentStyle[attr];
+		}else{
+			return getComputedStyle(elem)[attr];
+		}
+	}
+}
+</script>
+</body>
+</html>

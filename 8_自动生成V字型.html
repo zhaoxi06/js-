@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+#container{
+	margin: 10px;
+	position: relative;
+}
+#container div{
+	width: 40px;
+	height: 40px;
+	font-size: 20px;
+	line-height: 40px;
+	text-align: center;;
+	background: orange;
+	color: green;
+	transition: width 2s;height: 2s;
+	position: absolute;
+}
+</style>
+</head>
+<body>
+	<button>自动生成V字型</button>
+	<div id="container">
+		<div class="box">0</div>	
+		<div class="box">1</div>
+		<div class="box">2</div>
+		<div class="box">3</div>
+		<div class="box">4</div>
+		<div class="box">5</div>
+	</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aDiv = document.getElementsByClassName("box");
+	var oBtn = document.getElementsByTagName("button")[0];
+	var len = aDiv.length;
+	var mid = Math.floor(len/2);
+	var parity = len%2; //看div的个数是奇数还是偶数
+	var midTop = 0;
+	oBtn.onclick = function(){console.log(mid);
+		if(parity){//奇数个
+			midTop = mid*40;
+			for(var i=0;i<len;i++){
+				aDiv[i].style.top = (midTop - Math.abs(i-mid)*40) + "px";
+				aDiv[i].style.left = i*40 + "px";
+			}
+		}else{//偶数个
+			midTop = (mid-1)*40;
+			for(var i=0;i<mid;i++){
+				aDiv[i].style.top = (midTop - (mid-1-i)*40) + "px";
+				aDiv[i].style.left = i*40 + "px";
+			}
+			for(var i=mid;i<len;i++){
+				aDiv[i].style.top = (midTop - (i-mid)*40) + "px";
+				aDiv[i].style.left = i*40 + "px";
+			}
+		}
+
+		
+	}
+}
+</script>
+
+</body>
+</html>

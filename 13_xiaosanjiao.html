@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小三角</title>
+<style type="text/css">
+/* css */
+*{
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+#container{
+    position: relative;  /*//这句很重要，因为小三角是相对父元素#container来绝对定位的*/
+    width: 50px;
+    height: 40px;
+    border:1px solid lightblue;
+    margin: 200px auto;
+    padding: 20px;
+ 
+}
+#chat{
+    width: 50px;
+    height: 40px;
+    background-color: lightblue;
+    border-radius: 3px;
+}
+#triangle{
+    position: absolute; /*  //设置小三角绝对定位*/
+    width: 0px;
+    height: 0px;
+    *width: 14px;
+    *height: 14px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    border-width: 7px;
+    border-style: dashed dashed dashed solid;
+    border-color: transparent transparent transparent lightblue;
+    top: 33px;   /*//33px：父元素#container的内边距20px + #chat宽度的一半20px - 自身元素#triangle的边宽7px =33px*/
+    left: 70px;  /*//70px:  #chat的宽度50px + 父元素#container的内边距20px =70px*/
+}
+</style>
+</head>
+<body>
+<div id="container">
+    <div id="chat"></div>
+    <div id="triangle"></div>
+</div>
+</body>
+</html>

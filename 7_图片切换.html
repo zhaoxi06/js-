@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,p,img,button{padding: 0;margin: 0;}
+#imgShow{
+	width: 400px;
+	height: 300px;
+	border:10px solid #ccc; 
+	position: relative;
+}
+#imgShow img{
+	width: 100%;
+	height: 100%;
+}
+.textShow{
+	width: 100%;
+	height: 30px;
+	background-color: rgba(255,255,255,0.2);
+	color: #333;
+	line-height:30px;
+	text-align: center; 
+	position: absolute;
+}
+.text{
+	top: 0;
+	left: 0;
+}
+.num{
+	bottom: 0;
+	left: 0;
+}
+.next{
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 36px;
+	font-weight: bold;
+	border: 5px solid #ccc;
+	color: white;
+	position: absolute;
+	background: #000;
+	filter: alpha(opacity:30);
+	opacity: 0.3;
+}
+.next:hover{
+	filter: alpha(opacity:80);
+	opacity: 0.8;
+}
+#prev{
+	top: 120px;
+	left: 5px;
+}
+#next{
+	top: 120px;
+	right: 5px;
+}
+</style>
+</head>
+<body>
+	<div>
+		<button>循环切换</button>
+		<button>顺序切换</button>
+		<p id="desc">图片可以从最后一张跳到第一张</p>
+	</div>
+	<div id="imgShow">
+		<img src="img/1.jpg">
+		<P class="textShow text">小鱼游啊游~</P>
+		<p class="textShow num">1/4</p>
+		<div id="prev" class="next"><</div>
+		<div id="next" class="next">></div>
+	</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var textArr = ["小鱼游啊游~","你在看风景，我在看你","健健小伙子~","一个小姑娘~"];
+	var urlArr = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg"]
+
+	var prev = document.getElementById("prev");
+	var next = document.getElementById("next");
+	var imgShow = document.getElementsByTagName("img")[0];
+	var aP = document.getElementsByClassName("textShow");
+	var aBtn = document.getElementsByTagName("button");
+	var oP = document.getElementById("desc");
+	var mode = true;
+	//mode为true时，为循环模式，否则为顺序模式
+	aBtn[0].onclick = function(){
+		mode = true;
+		oP.innerHTML = "图片可以从最后一张跳到第一张";
+	}
+	aBtn[1].onclick = function(){
+		mode = false;
+		oP.innerHTML = "图片只能到最后一张或第一张";
+	}
+	//定义初始为第一张
+	var nowIndex = 0; 
+	var len = textArr.length;
+	next.onclick = function(){
+		if(mode){
+			nowIndex ++;
+			nowIndex %= len;
+		}else{
+			if(nowIndex == len-1){
+				alert("已经是最后一张啦~");
+			}else{
+				nowIndex ++;
+			}
+		}
+		switchPic();
+	}
+	prev.onclick = function(){
+		if(mode){
+			nowIndex == 0? nowIndex=len-1 : nowIndex--;
+			nowIndex %= len;
+		}else{
+			if(nowIndex == 0){
+				alert("已经是第一张啦~");
+			}else{
+				nowIndex --;
+			}
+		}
+		switchPic();
+	}
+
+	function switchPic(){
+		imgShow.src = urlArr[nowIndex];
+		aP[0].innerHTML = textArr[nowIndex];
+		aP[1].innerHTML = nowIndex+1 + "/" + len;
+	}
+}
+</script>
+</body>
+</html>

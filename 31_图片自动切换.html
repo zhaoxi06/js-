@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,img,p{padding: 0;margin: 0;}
+#box1{
+	width: 420px;
+	height: 300px;
+	border: 5px solid #ccc;
+	margin: 100px auto;
+	overflow: hidden;
+	position: relative;
+}
+#box2{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+}
+img{
+	width: 420px;
+	height: 300px;
+	position: absolute;
+	top: 0;
+}
+p{
+	width: 100%;
+	height: 80px;
+	position: absolute;
+	top: 300px;
+	left: 0;
+	color: white;
+	text-align: left;
+	background-color: rgba(0,0,0,0.5);
+}
+</style>
+</head>
+<body>
+<div id="box1">
+	<div id="box2">
+		<img id="one" src="img/littleboy.jpg">
+		<img id="two" src="img/1.jpg">
+	</div>
+	<p></p>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var oBox2 = document.getElementById("box2");
+	var aImg = document.getElementsByTagName("img");
+	var oP = document.getElementsByTagName("p")[0];
+
+	var imgUrl = ["img/littleboy.jpg","img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg"];
+	var text = ["书中的孙少平是一个有理想的人，为了理想和爱情，他积极的努力奋斗着，在生活中遭受了诸多挫折，但他一直没有放弃和绝望","我认为，每个人都有一个觉醒期，但觉醒的早晚决定个人的命运。","在这个世界上，不是所有合理的和美好的都能按照自己的愿望存在或实现。","其实我们每个人的生活都是一个世界，即使最平凡的人也要为他生活的那个世界而奋斗。","人们宁愿去关心一个蹩脚电影演员的吃喝拉撒和鸡毛蒜皮，而不愿了解一个普通人波涛汹涌的内心世界"];
+
+	var num = 1;
+	for(var i=0;i<aImg.length;i++){
+		aImg[i].style.left = 420*i +"px";
+	}
+	fn3();
+	function fn3(){
+		if(!num){
+			oP.innerHTML = text[4];
+		}else{
+			oP.innerHTML = text[num-1];
+		}
+		doMove(oP,"top",1,220,fn1);
+	}
+	
+	function fn1(){
+		setTimeout(function(){
+			doMove(oP,"top",1,300,fn2);
+		},1000);
+	}
+	function fn2(){
+		doMove(aImg[0],"left",4,-420);
+		doMove(aImg[1],"left",4,0,fn);
+		num ++;
+		num %= 5;
+	}
+
+	function fn(){
+		var img = oBox2.removeChild(aImg[0]);
+		oBox2.appendChild(img);
+		img.src = imgUrl[num];
+		img.style.left = "420px";
+		fn3();
+	}
+	function doMove(elem,attr,dir,target,endFn){
+		dir = parseInt(getStyle(elem,attr))>target?-dir:dir;
+		clearInterval(elem.timer);
+		elem.timer = setInterval(function(){
+			var speed = parseInt(getStyle(elem,attr)) + dir;
+			if(speed>target&&dir>0 || speed<target&&dir<0){
+				speed = target;
+			}
+			elem.style[attr] = speed + "px";
+			if(speed==target){
+				clearInterval(elem.timer);
+				endFn && endFn()
+			}
+		},30);
+	}
+	function getStyle(elem,attr){
+		return elem.currentStyle?elem.currentStyle[attr]:getComputedStyle(elem)[attr];
+	}
+}
+</script>
+</body>
+</html>

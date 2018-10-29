@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+#img1{
+	width: 400px;
+	height: 300px;
+	float: left;
+	margin: 10px 60px;
+}
+#img1 img{
+	width: 100%;
+	height: 100%;
+}
+#img2{
+	width: 120px;
+	height: 180px;
+	float: left;
+	margin: 10px;
+}
+#img2 img{
+	width: 100%;
+	height: 100%;
+}
+</style>
+</head>
+<body>
+	<button>上一组</button>
+	<button>下一组</button>
+	<div>
+		<div id="img1">
+			<img src="img/1.jpg">
+		</div>
+		<div id="img2">
+			<img src="img/charing/book0.jpg">
+		</div>
+	</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aBtn = document.getElementsByTagName("button");
+	var imgUrl1 = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg"];
+	var imgUrl2 = ["img/charing/book0.jpg","img/charing/book1.jpg","img/charing/book2.jpg","img/charing/book3.jpg","img/charing/book4.jpg"];
+	var aImg = document.getElementsByTagName("img");
+	var imgIndex1 = 0;
+	var imgIndex2 = 0;
+	aBtn[0].onclick = function(){
+		(imgIndex1==0)?imgIndex1=imgUrl1.length-1:imgIndex1--;
+		(imgIndex2==0)?imgIndex2=imgUrl2.length-1:imgIndex2--;
+		aImg[0].src = imgUrl1[imgIndex1];
+		aImg[1].src = imgUrl2[imgIndex2];
+
+	}
+	aBtn[1].onclick = function(){
+		imgIndex1 ++;
+		imgIndex1 %= imgUrl1.length;
+		imgIndex2 ++;
+		imgIndex2 %= imgUrl2.length;
+		aImg[0].src = imgUrl1[imgIndex1];
+		aImg[1].src = imgUrl2[imgIndex2];
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li,img{padding: 0;margin: 0;}
+ul{
+	width: 976px;
+	height: 172px;
+	border: 5px solid #333;
+	border-radius: 5px;
+	margin: 30px auto;
+}
+li{
+	list-style: none;
+	width: 122px;
+	height: 100%;
+	float: left;
+	position: relative;
+	overflow: hidden;
+}
+li img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+</style>
+<script type="text/javascript" src="js/usefulFun.js"></script>
+</head>
+<body>
+<ul>
+	<li class="time">
+		<img src="img/time0.jpg">
+		<img src="img/time0.jpg">
+	</li>
+	<li class="time">
+		<img src="img/time0.jpg">
+		<img src="img/time0.jpg">
+	</li>
+	<li><img src="img/colon.JPG"></li>
+	<li class="time">
+		<img src="img/time0.jpg">
+		<img src="img/time0.jpg">
+	</li>
+	<li class="time">
+		<img src="img/time0.jpg">
+		<img src="img/time0.jpg">
+	</li>
+	<li><img src="img/colon.JPG"></li>
+	<li class="time">
+		<img src="img/time0.jpg">
+		<img src="img/time0.jpg">
+	</li>
+	<li class="time">
+		<img class="one" src="img/time0.jpg">
+		<img class="two" src="img/time0.jpg">
+	</li>
+</ul>
+<span></span>
+<script type="text/javascript">
+window.onload = function(){
+	var oSpan = document.getElementsByTagName("span")[0];
+	var aLi = document.getElementsByClassName("time");
+	var timeImg = ["img/time0.jpg","img/time1.jpg","img/time2.jpg","img/time3.jpg","img/time4.jpg","img/time5.jpg","img/time6.jpg","img/time7.jpg","img/time8.jpg","img/time9.jpg"];
+	var aImg1 = [];
+	var aImg2 = [];
+	for(var i=0;i<aLi.length;i++){
+		aImg1.push(aLi[i].getElementsByTagName("img")[0]);
+		aImg2.push(aLi[i].getElementsByTagName("img")[1]);
+	}
+	var imgLen = aImg1.length;
+	for(var i=0;i<imgLen;i++){
+		aImg2[i].style.top = "172px";
+	}
+	var time;
+	var oldTime;
+	getNowTime();
+	for(var i=0;i<6;i++){
+		aImg1[i].src = timeImg[parseInt(time.charAt(i))];
+		aImg2[i].src = timeImg[(parseInt(time.charAt(i))+1)%10];
+		oldTime = time;
+	}
+	setInterval(function(){
+		getNowTime();
+		for(var i=0;i<6;i++){
+			if(oldTime.charAt(i)!=time.charAt(i)){
+				scroll(i);
+			}
+		}
+		oldTime = time;
+	},1000)
+	function whatIsNext(index){
+		var next = (parseInt(time.charAt(index))+1)%10;
+		if(index==0 && time.charAt(index)==2) next=0;
+		if(index==1 && time.charAt(index)==3) next=0;
+		if(index==2 && time.charAt(index)==5) next=0;
+		if(index==3 && time.charAt(index)==9) next=0;
+		if(index==4 && time.charAt(index)==5) next=0;
+		if(index==5 && time.charAt(index)==9) next=0;
+		return next;
+
+	}
+	function scroll(index){
+		var img = aLi[index].getElementsByTagName("img");
+		doMove(img[0],"top",20,-172);
+		doMove(img[1],"top",20,0,function(){
+			var oImg = aLi[index].removeChild(img[0]);
+			aLi[index].appendChild(oImg);
+			oImg.style.top = "172px";
+			var next = whatIsNext(index);
+			oImg.src = timeImg[next];
+		});
+	}
+	function getNowTime(){
+		var iNow = new Date();
+		var iHours = iNow.getHours();
+		var iMin = iNow.getMinutes();
+		var iSec = iNow.getSeconds();
+		time = toTwo(iHours)+toTwo(iMin)+toTwo(iSec);
+		oSpan.innerHTML = time;
+	}
+	function toTwo(num){
+		if(num<10){
+			return "0"+num;
+		}
+		return ""+num;
+	}
+	
+}
+</script>
+</body>
+</html>

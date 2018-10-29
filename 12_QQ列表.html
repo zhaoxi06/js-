@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li,h4{padding: 0;margin: 0;}
+li{list-style: none;}
+body{font-size: 14px arial;}
+#list{
+	width: 120px;
+	margin: 10px auto;
+	background: red;
+}
+#list h4{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	color: white;
+	padding: 0 5px;
+}
+.friends{
+	width: 100%;
+	background: orange;
+	display: none;
+}
+.friends li{
+	width: 100%;
+	text-indent: 15px;
+}
+.friends li:hover{
+	background: green;
+	color: white;
+}
+</style>
+</head>
+<body>
+<ul id="list">
+	<li>
+		<h4>独家记忆*最</h4>
+		<ul class="friends">
+			<li>平凡的世界</li>
+			<li>追风筝的人</li>
+			<li>至味在人间</li>
+		</ul>
+	</li>
+	<li>
+		<h4>独家记忆*醉</h4>
+		<ul class="friends">
+			<li>奇特的一生</li>
+			<li>活着</li>
+			<li>白夜行</li>
+		</ul>
+	</li>
+	<li>
+		<h4>独家记忆*酔</h4>
+		<ul class="friends">
+			<li>幻夜</li>
+			<li>东野圭吾</li>
+			<li>解忧杂货店</li>
+		</ul>
+	</li>
+</ul>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aH4 = document.getElementsByTagName("h4");
+	var len = aH4.length;
+	for(var i=0;i<len;i++){
+		aH4[i].onOff = false;
+		aH4[i].onclick = function(){
+			var friends = this.parentNode.getElementsByClassName("friends")[0];
+			if(this.onOff){
+				this.onOff = false;
+				friends.style.display = "";
+			}else{
+				turnOff();
+				this.onOff = true;
+				friends.style.display = "block";
+			}
+			
+		}
+	}
+
+	function turnOff(){
+		for(var i=0;i<len;i++){
+			aH4[i].onOff = false;
+			var friends = aH4[i].parentNode.getElementsByClassName("friends")[0];
+			friends.style.display = "";
+		}
+	}
+}
+</script>
+</body>
+</html>

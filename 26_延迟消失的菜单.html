@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+ul{
+	overflow: hidden;
+}
+li{
+	list-style: none;
+	float: left;
+	width: 80px;
+	border-right: 2px solid white;
+	background: green;
+	color: white;
+	text-align: center;
+}
+li.active{
+	background: orange;
+	color: white;
+}
+p{	
+	width: 300px;
+	background: green;
+	content: orange;
+	text-align: center;
+	color: white;
+	display: none;
+}
+</style>
+</head>
+<body>
+<ul>
+	<li>首页</li>
+	<li>关于我们</li>
+	<li>作品</li>
+	<li>博客</li>
+</ul>
+<p></p>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aLi = document.getElementsByTagName("li");
+	var oP = document.getElementsByTagName("p")[0];
+	var arr = ["最新更新|报名活动|试听|学员反馈","妙味讲师|培训理念|等等","JAVASCRIPT","很多很多很多很多篇文章哦"];
+	oP.timer ;
+	var oldLi ;
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].index = i;
+		aLi[i].className = '';
+		aLi[i].onmouseover = function(){
+			oP.innerHTML = arr[this.index];
+			oP.style.display = "block";
+			this.className = 'active';
+			oldLi = this;
+		}
+		aLi[i].onmouseout = function(){
+			var _this = this;
+			_this.className = '';
+			oP.timer = setTimeout(function(){
+				oP.style.display = "none";
+			},300);
+		}
+	}
+	oP.onmouseover = function(){
+		clearInterval(oP.timer);
+		oP.style.display = "block";
+		oldLi.className = "active";
+	}
+	oP.onmouseout = function(){
+		oP.style.display = "none";
+		oldLi.className = "";
+	}
+}
+</script>
+</body>
+</html>

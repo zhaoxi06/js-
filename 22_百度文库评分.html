@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+li{
+	list-style: none;
+	float: left;
+	font-size: 30px;
+	margin-right: 5px;
+	color: #ccc;
+}
+</style>
+</head>
+<body>
+<p>总体评价:</p>
+<ul>
+	<li>&#9733;</li>
+	<li>&#9733;</li>
+	<li>&#9733;</li>
+	<li>&#9733;</li>
+	<li>&#9733;</li>
+</ul>
+<span></span>
+<script type="text/javascript">
+window.onload = function(){
+	var aLi = document.getElementsByTagName("li");
+	var oText = document.getElementsByTagName("span")[0];
+	var textEvaluate = ["很差","较差","还行","推荐","力荐"];
+	var oldIndex = -1 ;
+	var onOff = true;
+	for(var i=0;i<aLi.length;i++){
+		aLi[i].index = i;
+		aLi[i].onmouseover = function(){
+			clearAll();
+			changeColor(this.index);
+			oText.innerHTML = textEvaluate[this.index];
+		}
+		aLi[i].onclick = function(){
+			onOff = false;
+			changeColor(this.index);
+			oText.innerHTML = textEvaluate[this.index];
+			oldIndex = this.index;
+		}
+		//if(onOff){  //要注意代码执行的先后顺序。if 条件判断放这里的话，onOff的值永远为赋的初始值
+		aLi[i].onmouseout = function(){
+			clearAll();
+			if(!onOff){
+				changeColor(oldIndex);
+				oText.innerHTML = textEvaluate[oldIndex];
+			}
+		}
+	}
+
+	function changeColor(index){
+		var color = '';
+		if(index<=1){
+			color = "#FF4600";
+		}else{
+			color = "red";
+		}
+		for(var i=0;i<=index;i++){
+			aLi[i].style.color = color;
+		}
+	}
+	function clearAll(){
+		for(var i=0;i<aLi.length;i++){
+				aLi[i].style.color = '#ccc';
+				oText.innerHTML = '';
+		}
+	}
+}
+</script>
+</body>
+</html>

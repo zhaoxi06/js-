@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+li{list-style: none;}
+</style>
+</head>
+<body>
+<ul id="list">
+	<li><input type="checkbox" name="1music">烟火里的尘埃</li>
+	<li><input type="checkbox" name="2music">Hear we are</li>
+	<li><input type="checkbox" name="3music">国王与乞丐</li>
+	<li><input type="checkbox" name="4music">前世情人</li>
+	<li><input type="checkbox" name="5music">山海</li>
+	<li><input type="checkbox" name="6music">齐天大圣</li>
+</ul>
+<input id="sel" type="checkbox" name="music">全选
+
+<script type="text/javascript">
+window.onload = function(){
+	var oUl = document.getElementById("list");
+	var aLi = document.getElementsByTagName("li");
+	var aInp = oUl.getElementsByTagName("input");
+	var oSel = document.getElementById("sel");
+	var onOff = false;
+	oSel.onclick = function(){
+		if(oSel.checked){
+			for(var i=0;i<aInp.length;i++){
+				aInp[i].checked = true;
+			}
+		}else{
+			for(var i=0;i<aInp.length;i++){
+				aInp[i].checked = false;
+			}
+		}
+	}
+	for(var i=0;i<aInp.length;i++){
+		var num = 0;
+		aInp[i].onclick = function(){
+			if(this.checked){
+				num ++;
+			}else{
+				num --;
+			}
+			if(num==aInp.length){
+				oSel.checked = true;
+			}else{
+				oSel.checked = false;
+			}
+		}
+	}
+}
+</script>
+</body>
+</html>

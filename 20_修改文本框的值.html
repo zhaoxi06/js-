@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,ul,li,span,img,input{padding: 0;margin: 0;}
+li{list-style: none;}
+ul{
+	width: 300px;
+	height: 200px;
+	border:1px solid #669933;
+	margin: 0 auto;
+}
+#category{
+	width: 280px;
+	background: #693;
+	padding: 0 10px;
+}
+li{
+	width: 260px;
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px dashed #BDDEDE;
+	padding: 0 20px;
+}
+.init{
+}
+.modify{
+	display: none;
+	color: #693;
+}
+</style>
+</head>
+<body>
+<ul>
+	<li id="category">分类名称</li>
+	<li>
+		<div class="init">
+			<span class="text">妙味课堂</span>
+			<img class="pen" src="img/btn.png">
+		</div>
+		<div class="modify">
+			<input type="text" name="inp">
+			<span class="save">保存</span>
+			<span class="cancel">取消</span>
+		</div>
+	</li>
+	<li>
+		<div class="init">
+			<span class="text">妙味课堂</span>
+			<img class="pen" src="img/btn.png">
+		</div>
+		<div class="modify">
+			<input type="text" name="inp">
+			<span class="save">保存</span>
+			<span class="cancel">取消</span>
+		</div>
+	</li>
+</ul>	
+
+<script type="text/javascript">
+window.onload = function(){
+	var aInit = document.getElementsByClassName("init");
+	var aModify = document.getElementsByClassName("modify");
+	var aPen = document.getElementsByClassName("pen");
+	var aText = document.getElementsByClassName("text");
+	var aSave = document.getElementsByClassName("save");
+	var aCancel = document.getElementsByClassName("cancel");
+	var aInp = document.getElementsByTagName("input");
+	for(var i=0;i<aPen.length;i++){
+		aPen[i].index = i;
+		aPen[i].onclick = function(){
+			aInit[this.index].style.display = "none";
+			aModify[this.index].style.display = "block";
+		}
+		aSave[i].index = i;
+		aSave[i].onclick = function(){
+			val = aInp[this.index].value;
+			aText[this.index].innerHTML = val;
+			aInit[this.index].style.display = "block";
+			aModify[this.index].style.display = "none";
+		}
+		aCancel[i].index = i;
+		aCancel[i].onclick = function(){
+			aInit[this.index].style.display = "block";
+			aModify[this.index].style.display = "none";
+		}
+	}
+
+}
+</script>
+</body>
+</html>

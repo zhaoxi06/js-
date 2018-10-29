@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+li{list-style: none;}
+.list{
+	position: relative;
+}
+.box{
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 24px;
+	color: white;
+	position: absolute;
+	background: red;
+}
+</style>
+</head>
+<body>
+	<button>自动生成100个LI</button>
+	<ul id="list"></ul>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oBtn = document.getElementsByTagName("button")[0];
+	var oList = document.getElementById("list");
+	oBtn.onclick = function(){
+		for(var i=0;i<100;i++){
+			var oLi = document.createElement("li");
+			oLi.setAttribute("class","box");
+			oLi.innerHTML = i;
+			oLi.style.left = 10+(i%10)*40 + "px";
+			oLi.style.top = 40+Math.floor(i/10)*40 + "px";
+			oList.appendChild(oLi);
+		}
+	}
+}
+</script>
+</body>
+</html>

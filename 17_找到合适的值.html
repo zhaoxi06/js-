@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+</head>
+<body>
+
+<script type="text/javascript">
+window.onload = function(){
+/*
+	1、找到arr里所有的数字：-98765, 34, -2, 0, 5
+	2、找到可以转成数字的：'100px', -98765, 34, -2, 0, '300', '23.45元',  5 
+	3、把转成数字以后，最大值判断出来：300
+	4、把 NaN 所在的位置找出来：1 14 17  19
+*/
+	var arr = [ '100px', 'abc'-6, [], -98765, 34, -2, 0, '300', , function(){alert(1);},
+	null, document, [], true, '200px'-30,'23.45元', 5, Number('abc'), function(){ alert(3); }, 'xyz'-90 ];
+
+	var len = arr.length;
+	function isNum(){
+		for(var i=0;i<len;i++){
+			if(!isNaN(arr[i]) && typeof(arr[i])== "number") console.log(arr[i]);
+		}
+	}
+	function canTransformNum(){
+		for(var i=0;i<len;i++){
+			if(!isNaN(parseFloat(arr[i]))) console.log(arr[i]);
+		}
+	}
+	function canTransformNumAddMax(){
+		var arrNum = [];
+		for(var i=0;i<len;i++){
+			if(!isNaN(parseFloat(arr[i]))) {
+				arrNum.push(arr[i]);
+			}
+		}
+		var maxNum = arrNum[0];
+		for(var i=1;i<arrNum.length;i++){
+			if(arrNum[i] > maxNum){
+				maxNum = arrNum[i];
+				continue;
+			}
+		}
+		console.log(maxNum);
+	}
+	function finsNaNPosition(){
+		for(var i=0;i<len;i++){
+			if(arr[i] != arr[i]) console.log(i);
+		}
+	}
+	// isNum();
+	// canTransformNum();
+	// canTransformNumAddMax();
+	finsNaNPosition();
+}
+</script>
+</body>
+</html>

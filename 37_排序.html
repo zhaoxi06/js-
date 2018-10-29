@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,ul,li,button{padding: 0;margin: 0;}
+li{list-style: none;}
+body{
+	background: pink;
+}
+#box{
+	width: 840px;
+	height: 380px;
+	margin: 0 auto;
+	
+}
+#box1{
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	padding: 10px 0;
+}
+#box1 button{
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background: #666;
+	color: white;
+	font-size: 20px;
+	margin-right: 10px;
+	border:none;
+}
+ul{
+	width: 100%;
+	height: 320px;
+	margin-left: 20px;
+}
+ul li {
+	width: 200px;
+	height: 180px;
+	float: left;
+	margin: 0 10px 10px 0;
+}
+ul li img{
+	width: 180px;
+	height: 120px;
+	border:10px solid white;
+}
+ul li span{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 18px;
+	display: inline-block;
+}
+</style>
+</head>
+<body>
+<div id="box">
+	<div id="box1">
+		<button>从大到小</button>
+		<button>随机排序</button>
+	</div>
+	<ul>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+		<li>
+			<img src="img/1.jpg">
+			<span>图片一</span>
+		</li>
+	</ul>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var aBtn = document.getElementsByTagName("button");
+	var aLi = document.getElementsByTagName("li");
+	var aImg = document.getElementsByTagName("img");
+	var aSpan = document.getElementsByTagName("span");
+	var arrImg = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg","img/6.jpg","img/7.jpg","img/8.jpg"];
+	var arrText = ["图片一","图片二","图片三","图片四","图片五","图片六","图片七","图片八"];
+	var arrLen = arrImg.length;
+	var arr = [];
+	for(var i=0;i<arrLen;i++){
+		arr.push(i);
+	}
+
+	var newarr = arr.sort(function(a,b){
+		return Math.random()-0.5;
+	});
+	fn(newarr);
+
+	aBtn[0].onclick = function(){
+		var newarr = arr.sort(function(a,b){
+			return b-a;
+		});
+		fn(newarr);
+	}
+	aBtn[1].onclick = function(){
+		var newarr = arr.sort(function(a,b){
+			return Math.random()-0.5;
+		});
+		fn(newarr);
+	}
+
+	function fn(newarr){
+		for(var i=0;i<arrLen;i++){
+			aImg[i].src= arrImg[newarr[i]];
+			aSpan[i].innerHTML= arrText[newarr[i]];
+		}
+	}
+}
+</script>
+</body>
+</html>

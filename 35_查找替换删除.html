@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li,div,span,input{padding: 0;margin: 0;}
+li{list-style: none;}
+#box{
+	width: 600px;
+	height: 480px;
+	margin: 40px auto;
+}
+#text,ul,#select{float: left;}
+#text{
+	width: 400px;
+	height: 240px;
+	padding: 10px;
+	border: 5px solid #ccc;
+}
+#text span{
+	background: orange;
+}
+ul{
+	width: 80px;
+	height: 90px;
+	margin-left: 20px;
+}
+ul li{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+.title{
+	background: #5252B7;
+	color: white;
+}
+.show{
+	background: #98CBF7;
+	display: none;
+}
+.active1{
+	background: #52A0DB;
+	color: white;
+}
+#select{
+	width: 390px;
+	height: 120px;
+	padding: 15px;
+	border:5px solid #CCFFCC;
+	margin: 30px 0;
+	position: relative;
+	display: none;
+}
+#select span{display: inline-block;}
+#close{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 20px;
+	font-weight: bold;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: center;
+}
+#tab{
+	font-size: 0px;
+	border-bottom: 3px solid #B4F2DB;
+}
+#tab span{
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 16px;
+}
+.active2{
+	background: #B4F2DB;
+	color: #4646F5;
+}
+#find,#replace{
+	margin-top: 15px;
+}
+#find{
+	
+}
+#replace{
+	display: none;
+}
+</style>
+</head>
+<body>
+<div id="box">
+	<div id="text">一转眼，春夏秋冬又将岁月围绕了一圈儿。印象中还站在去年秋天的风里，诱人的花香却将你引醉到今年的暮春时节。看过了玉兰花的娇媚又闻过了樱花的芳香，一簇簇蔷薇就带着俏皮的骨朵带来了五月的婀娜。而每一年五月的第二个星期日，都是一个伟大的日子——母亲节。在这一天，每个母亲健在的孩子都是幸运的。因为，他们依然可以看到自己的母亲，依然可以享受母亲无私的爱，我也是其中之一。</div>
+	<ul>
+		<li class="title">展开</li>
+		<li class="show active1">查找</li>
+		<li class="show">替换</li>
+	</ul>
+	<div id="select">
+		<span id="close">X</span>
+		<div id="tab">
+			<span class="active2">查找</span>
+			<span>替换</span>
+		</div>
+		<div id="find">
+			<input type="text">
+			<input type="button" value="查找">
+		</div>
+		<div id="replace">
+			<input type="text">
+			<input type="text">
+			<input type="button" value="替换">
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oLi = document.getElementsByTagName("li")[0];
+	var aLi = document.getElementsByClassName("show");
+	var oSelect = document.getElementById("select");
+	var aInp = oSelect.getElementsByTagName("input");
+	var oClose = document.getElementById("close");
+	var oTab = document.getElementById("tab");
+	var aTab = oTab.getElementsByTagName("span");
+	var oFind = document.getElementById("find");
+	var oReplace = document.getElementById("replace");
+	var oText = document.getElementById("text");
+	var oldText = oText.innerHTML;
+
+	var onOff = false;
+	var oldTab = aTab[0];
+	var oldLi = aLi[0];
+	oLi.onclick = function(){
+		onOff = !onOff;
+		if(onOff){
+			optShow();
+		}else{
+			optHide();
+		}
+	}
+	for(var i=0;i<2;i++){
+		aLi[i].index = i;
+		aTab[i].index = i;
+		aLi[i].onmouseover = function(){
+			oldLi.classList.remove("active1");
+			this.classList.add("active1");
+			oldLi = this;
+		}
+		aLi[i].onclick = function(){
+			oSelect.style.display = "block";
+			optHide();
+			oldTab.className = "";
+			aTab[this.index].className = "active2";
+			oldTab = aTab[this.index];
+			if(!this.index){
+				oFind.style.display = "block";
+				oReplace.style.display = "none";
+			}else{
+				oFind.style.display = "none";
+				oReplace.style.display = "block";
+			}
+		}
+		aTab[i].onclick = function(){
+			oText.innerHTML = oldText;
+			oldTab.className = "";
+			this.className = "active2";
+			oldTab = this;
+			if(!this.index){
+				oFind.style.display = "block";
+				oReplace.style.display = "none";
+			}else{
+				oFind.style.display = "none";
+				oReplace.style.display = "block";
+			}
+		}
+	}
+
+	function optShow(){
+		aLi[0].style.display = "block";
+		aLi[1].style.display = "block";
+		onOff = true;
+	}
+	function optHide(){
+		aLi[0].style.display = "none";
+		aLi[1].style.display = "none";
+		onOff = false;
+	}
+	oClose.onclick = function(){
+		oSelect.style.display = "none";
+	}
+	//查找
+	aInp[1].onclick = function(){
+		var oText = document.getElementById("text");
+		oText.innerHTML = oldText;
+		var val = aInp[0].value;
+		if(!val.length){
+			alert("请输入要查找的内容");
+		}
+		if(oText.innerHTML.indexOf(val)==-1){
+			alert("你输入的内容没找到");
+		}
+		var arr = oText.innerHTML.split(val);
+		var str = "<span>"+val+"</span>"
+		oText.innerHTML = arr.join(str);
+	}
+	//替换
+	aInp[4].onclick = function(){
+		var oText = document.getElementById("text");
+		var val1 = aInp[2].value;
+		var val2 = aInp[3].value;
+		if(!val1.length || !val2.length){
+			alert("请输入内容");
+		}
+		var arr = oText.innerHTML.split(val1);
+		var str = "<span>"+val2+"</span>"
+		oText.innerHTML = arr.join(str);
+	}
+	
+
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,img,p,span,input,button,ul,li{padding: 0;margin: 0;}
+li{list-style: none;}
+button{border:none;}
+#panel{
+	width: 300px;
+	height: 500px;
+	border:5px solid #F85659;
+	margin: 0 auto;
+}
+#info{
+	width: 100%;
+	height: 436px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.oneInfo{
+	width: 220px;
+	margin: 5px 40px;
+}
+.user{
+	width: 30px;
+	height: 30px;
+	border-radius:50%;
+}
+.userLeft{
+	position: relative;
+	top: 0;
+	right: 30px;
+}
+.userRight{
+	position: relative;
+	top: 0;
+	right: -220px;
+}
+.content{
+	padding: 0 10px;
+	background: pink;
+	border-radius: 5px;
+	position: relative;
+	top: -30px;
+}
+.content img{
+	vertical-align: middle;
+}
+.normal{
+	line-height: 24px;
+	letter-spacing: 6px;
+}
+.content span{
+	width: 20px;
+	height: 46px;
+	padding: 0 1px;
+	text-align: center;
+	line-height: 24px;
+	display: inline-block;
+	/*background: url("img/2.png") no-repeat bottom center;*/
+}
+#control{
+	width: 100%;
+	height: 64px;	
+}
+.setPanel{
+	width: 100%;
+	height: 24px;
+	line-height: 24px;
+}
+.emoijPanel{
+	width: 24px;
+	height: 100%;
+	position: relative;
+	font-size: 0;
+}
+#emoij{
+	width: 24px;
+	height: 24px;
+	vertical-align: middle;
+}
+.emoijBox{
+	width: 120px;
+	height: 72px;
+	background: #CCFFFF;
+	position: absolute;
+	top: -72px;
+	left: 0;
+	display: none;
+}
+.emoijBox img{
+	width: 24px;
+	height: 24px;
+	vertical-align: top;/*图片换行后上下行产生间距*/
+}
+#box{
+	width: 240px;
+	position: relative;
+	top: -25px;
+	left: 30px;
+}
+.setPanel span{
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 20px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	font-size: 20px;
+}
+#set{
+	width: 180px;
+	height: 180px;
+	position: absolute;
+	top: -186px;
+	left: 0;
+	background: #FFC0CB;
+	display: none;
+}
+#set li{
+	width: 100%;
+	height: 40px;
+}
+#set li span{
+	height: 40px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #E73E41;
+	padding: 1px;
+}
+.shy span{background: url("img/17.png") no-repeat bottom center}
+.slobber span{background: url("img/16.png") no-repeat bottom center}
+.lovely span{background: url("img/2.png") no-repeat bottom center}
+.knife span{background: url("img/18.png") no-repeat bottom center}
+#set li.normal{height: 20px;}
+#userInfo{
+	width: 100%;
+	height: 30px;
+	margin: 5px 0;
+}
+#sendUser{
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+}
+#textInp{
+	width: 200px;
+	height: 20px;
+	margin-top: -10px;
+}
+#send{
+	width: 40px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #F85659;
+	color: white;
+}
+</style>
+<script type="text/javascript" src="js/usefulFun.js"></script>
+</head>
+<body>
+<div id="panel">
+	<div id="info">
+		<!-- <div class="oneInfo">
+			<img class="user userLeft" src="img/lswl.jpg">
+			<div class="content">
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+			</div>
+		</div>
+		<div class="oneInfo">
+			<img class="user userLeft" src="img/lswl.jpg">
+			<div class="content">
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+				<span>华</span>
+				<span>晨</span>
+				<span>宇</span>
+			</div>
+		</div> -->
+	</div>
+	<div id="control">
+		<div class="setPanel">
+			<div class="emoijPanel">
+				<img id="emoij" src="img/2.png">
+				<div class="emoijBox">
+					<!-- <img src="img/2.png"> -->
+				</div>
+			</div>
+			<div id="box">
+				<span id="font">A</span>
+				<ul id="set">
+					<li class="shy"><span>哎</span><span>哟</span><span>~</span><span>我</span><span>害</span><span>羞</span><span>~</span></li>
+					<li class="slobber"><span>发</span><span>个</span><span>红</span><span>包</span><span>给</span><span>你</span><span>乐</span><span>呵</span></li>
+					<li class="lovely"><span>人</span><span>家</span><span>萌</span><span>萌</span><span>哒</span><span>啦</span><span>~</span><span>~</span></li>
+					<li class="knife"><span>有</span><span>本</span><span>事</span><span>你</span><span>过</span><span>来</span><span>~</span><span>~</span></li>
+					<li class="normal">正常字体</li>
+				</ul>
+			</div>
+			
+		</div>
+		<div id="userInfo">
+			<img id="sendUser" src="img/lswl.jpg">
+			<input id="textInp" type="text">
+			<button id="send">发送</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oSend = document.getElementById("send");
+	var oTextInp = document.getElementById("textInp");
+	var oSendUser = document.getElementById("sendUser");
+	var oInfo = document.getElementById("info");
+	var aContent = document.getElementsByClassName("content");
+	var oFont = document.getElementById("font");
+	var oFontSet = document.getElementById("set");
+	var aFontList = oFontSet.getElementsByTagName("li");
+	var oEmoij = document.getElementById("emoij");
+	var oEmoijBox = document.getElementsByClassName("emoijBox")[0];
+	var aEmoij = oEmoijBox.getElementsByTagName("img");
+	var emoij = ["img/1.png","img/2.png","img/3.png","img/4.png","img/5.png","img/6.png","img/7.png","img/8.png","img/9.png","img/10.png","img/11.png","img/12.png","img/13.png","img/14.png","img/15.png"];
+
+	var onOff = true;//true代表发送者为栗山未来
+	oSend.onclick = function(){
+		var contentLen = aContent.length;
+		var user = oSendUser.src;
+		var val = oTextInp.value;
+		//不能发送空消息
+		if(!val.length) {
+			alert("请输入内容！");
+			return;
+		}
+		
+		//判断是不是正常字体，正常字体显示一行，其他还要显示表情
+		var str;
+		if(cn=="normal"){
+			str = val;
+		}else{
+			str = addSpan(val)
+		}
+		//判断内容要向左还是向右显示
+		if(onOff){
+			var text = "<div class='oneInfo'><img class='user userRight' src='img/lswl.jpg'><div class='content " +cn+"'>"+str+"</div></div>";
+		}else{
+			var text = "<div class='oneInfo'><img class='user userLeft' src='img/syqr.jpg'><div class='content "+cn+"'>"+str+"</div></div>";
+		}
+		oInfo.innerHTML += text;
+		
+		//判断是否需要设置内容的宽度和left值
+		if(val.length>9){
+			if(arrEmoij.length && arrEmoij.length<9){
+				setWidth(aContent[contentLen],val.length);
+				if(onOff) setLeft(aContent[contentLen],val.length);
+			}
+		}else{
+			setWidth(aContent[contentLen],val.length);
+			if(onOff) setLeft(aContent[contentLen],val.length);
+		}
+
+		//滚动条始终保持在最底部
+		oInfo.scrollTop = oInfo.scrollHeight;
+		
+		oTextInp.value = "";
+		arrEmoij = [];
+	}
+	//把表情放入盒子中
+	var emoijLen = emoij.length;
+	var strEmoij = "";
+	for(var i=0;i<emoijLen;i++){
+		strEmoij +="<img src='"+emoij[i]+"'>";
+	}
+	oEmoijBox.innerHTML = strEmoij
+
+	//字体的选择，默认normal
+	var cn = "normal";//目前选用的是哪个字体
+	for(var i=0;i<aFontList.length;i++){
+		aFontList[i].onclick = function(){
+			cn = this.className;
+			oFontSet.style.display = "none";
+			onOffFont = !onOffFont;	
+		}
+	}
+	//在输入框中输入表情
+	var arrEmoij = [];
+	for(var i=0;i<emoijLen;i++){
+		aEmoij[i].index = i;
+		aEmoij[i].onclick = function(){
+			arrEmoij.push("<img src='"+emoij[this.index]+"'>");
+			oTextInp.value += "<img src='"+emoij[this.index]+"'>";
+			cn = "normal";//如果输入表情的话，强行把字体设为normal
+			oEmoijBox.style.display = "none";
+			onOffEmoij = !onOffEmoij;
+		}
+	}
+
+
+	//控制表情的显示
+	var onOffEmoij = true;
+	oEmoij.onclick = function(){
+		if(onOffEmoij){
+			if(!onOffFont){
+				oFontSet.style.display = "none";
+				onOffFont = !onOffFont;
+			}
+			oEmoijBox.style.display = "block";
+		}else{
+			oEmoijBox.style.display = "none";
+		}
+		onOffEmoij = !onOffEmoij;	
+	}
+	//控制字体的显示
+	var onOffFont = true;
+	oFont.onclick = function(){
+		if(onOffFont){
+			if(!onOffEmoij){
+				oEmoijBox.style.display = "none";
+				onOffEmoij = !onOffEmoij;
+			}
+			oFontSet.style.display = "block";
+		}else{
+			oFontSet.style.display = "none";
+		}
+		onOffFont = !onOffFont;	
+	}
+	//修改发送消息的人
+	oSendUser.onclick = function(){
+		onOff = !onOff;
+		if(onOff){
+			oSendUser.src = "img/lswl.jpg";
+		}else{
+			oSendUser.src = "img/syqr.jpg";
+		}
+	}
+	//如果输入的字符串长度太短，则给他设置宽度
+	function addSpan(val){
+		var arr = val.split("");
+		var arrLen = arr.length;
+		var str;
+		for(var i=0;i<arrLen;i++){
+			arr[i] = "<span>"+arr[i]+"</span>";
+		}
+		str = arr.join("");
+		return str
+	}
+	//设置宽度后，如果还要靠右边显示，则还要这是left值
+	function setWidth(elem,len){
+		var step= 22;
+		if(arrEmoij.length){
+			len = arrEmoij.length;
+			step = 24;
+		}
+		var w = len*step;
+		elem.style.width = w+"px";
+	}
+	function setLeft(elem,len){
+		var step = 22;
+		if(arrEmoij.length){
+			len = arrEmoij.length;
+			step = 24;
+		}
+		var w = len*step;
+		elem.style.left = (220-w-20)+"px";
+	}
+}
+</script>
+</body>
+</html>

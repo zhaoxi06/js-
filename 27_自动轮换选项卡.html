@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,img,ul,li{padding: 0;margin: 0;}
+li{list-style: none;}
+#box{
+	width: 380px;
+	height: 230px;
+}
+#tab{
+	height: 30px;
+}
+#tab li{
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background: #94FFC6;
+	float:left;
+}
+#tab li.active1{
+	background: #005A63;
+	color: white;
+}
+#box1{
+	width: 380px;
+	height: 200px;
+}
+img{
+	width: 300px;
+	height: 100%;
+	float: left;
+	border:none;
+}
+#box2{
+	width: 80px;
+	height: 100%;
+	background: #CCFF66;
+	float: left;
+	overflow: hidden;
+}
+#box2 li{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+#box2 li.active2{
+	background: #639CC6;
+}
+</style>
+</head>
+<body>
+<div id="box">
+	<ul id="tab">
+		<li class="active1">第一类</li>
+		<li>第二类</li>
+	</ul>
+	<div id="box1">
+		<img src="img/littleboy.jpg">
+		<ul id="box2">
+			<li class="active2">1-1</li>
+			<li>1-2</li>
+			<li>1-3</li>
+			<li>1-4</li>
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oTab = document.getElementById("tab");
+	var aTab = oTab.getElementsByTagName("li");
+	var oBox2 = document.getElementById("box2");
+	var aLi = oBox2.getElementsByTagName("li");
+	var oImg = document.getElementsByTagName("img")[0];
+
+	var tab1Data = {
+		imgUrl : ["img/littleboy.jpg","img/1.jpg","img/2.jpg","img/3.jpg"],
+		text : ["1-1","1-2","1-3","1-4"]
+	}
+	var tab2Data = {
+		imgUrl : ["img/4.jpg","img/3.jpg","img/2.jpg","img/1.jpg"],
+		text : ["2-1","2-2","2-3","2-4"]
+	}
+	var onOff = true; //控制第一类还是第二类循环
+	var index = 0;
+	var data ;
+	setInterval(function(){
+		clearActive();
+		index ++;
+		index %= aLi.length;
+		if(!index){
+			onOff = !onOff;
+			fillText();
+		} 
+		aLi[index].className = "active2";
+		if(onOff){
+			oImg.src = tab1Data.imgUrl[index];
+		}else{
+			oImg.src = tab2Data.imgUrl[index];
+		}
+		
+	},1000);
+
+	function fillText(){
+		aTab[0].className = "";
+		aTab[1].className = "";
+		var data;
+		if(onOff){
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].innerHTML = tab1Data.text[i];
+			}
+			aTab[0].className = "active1";
+		}else{
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].innerHTML = tab2Data.text[i];
+			}
+			aTab[1].className = "active1";
+		}
+	}
+
+	function clearActive(){
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].className = '';
+		}
+	}
+}
+</script>
+</body>
+</html>

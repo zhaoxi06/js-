@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,h4,nav,span,ul,li,em,div,p,button,img,footer{padding: 0;margin: 0;}
+li{list-style: none;}
+img{border:none;}
+#container{
+	width: 268px;
+	height: 396px;
+	margin: 0 auto;
+	padding: 0 5px;
+	background: #DEE7E7;
+}
+header{
+	height: 24px;
+	padding-top: 23px;
+	border-bottom: 1px solid #94BDD6;
+}
+header h4{
+	width: 146px;
+	float: left;
+	text-indent: 10px;
+}
+header nav{
+	height: 100%;
+	font-size: 0;
+	float: left;
+}
+header nav span{
+	width: 35px;
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
+	text-align: center;
+	display: inline-block;
+	border-left: 1px solid #94BDD6;
+	border-top: 1px solid #94BDD6;
+	
+}
+header nav span.rightMost{
+	border-right: 1px solid #94BDD6;
+}
+.active{
+	background: white;
+}
+ul{
+	height: 314px;
+}
+.list{
+	width: 100%;
+	height: 26px;
+	/*height: 80px;
+	background: white;*/
+	border-bottom: 1px dashed white;
+}
+.activeList{
+	width: 100%;
+	height: 80px;
+	background: white;
+	border-bottom: 1px dashed white;
+}
+.order,.list .textDesc{float: left;} 
+.order{
+	width: 16px;
+	height: 14px;
+	display: inline-block;
+	background: #185A84;
+	color: white;
+	font-style: normal;
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	margin:6px 10px;
+}
+.list .textDesc{
+	display: inline-block;
+	width:232px;
+	height: 26px;
+	font-size: 12px;
+	line-height: 26px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
+.details{
+	width: 232px;
+	height: 80px;
+	float: left;
+	display: none;
+}
+.details img{
+	width: 80px;
+	height: 60px;
+	padding: 10px 0;
+	vertical-align: top;
+	float: left;
+	display: inline-block;
+}
+.details div{
+	width: 142px;
+	height: 60px;
+	padding:10px 5px;
+	float: left;
+}
+.details div span{
+	display: block;
+	width: 130px;
+	height: 32px;
+	line-height: 16px;
+	font-size: 16px;
+	color: #4D646B;
+	margin: 5px;
+	word-break: break-all;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.details div button{
+	width: 40px;
+	height:20px;
+	line-height: 20px;
+	background: #29739C;
+	color: white;
+	text-align: center;
+	border:1px solid #29739C;
+	border-radius: 2px;
+	display: block;
+	margin:0 0 0 100px;
+}
+footer{
+	height: 30px;
+	line-height: 30px;
+	text-align: right;
+	font-size: 14px;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+		<header>
+			<h4>观看排行榜</h4>
+			<nav id="navigation">
+				<span class="active">每日</span>
+				<span>每周</span>
+				<span class="rightMost">全部</span>
+			</nav>
+		</header>
+		<ul id="newlist">
+			<!-- <li class="activeList">
+				<em class="order">1</em>
+				<span class="textDesc">被关晓彤壁咚和热巴激吻 这个男人如何俘获杨幂心</span>
+				<div class="details">
+					<img src="img/littleboy.jpg">
+					<div>
+						<span>被关晓彤壁咚和热巴激吻 这个男人如何俘获杨幂心</span>
+						<button>播放</button>
+					</div>
+				</div>
+			</li> -->
+		</ul>
+		<footer>更多>></footer>
+	</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var dayTextData=['被关晓彤壁咚和热巴激吻 这个男人如何俘获杨幂心',
+			'隋棠与女儿亲密互动 小Lucy梳朝天辫被网友赞萌神',
+			'每天都有人说这首歌像OkeyDokey，那首歌像<OkeyDo></OkeyDo>。难道它是百变怪？...',
+			'科勒·卡戴珊自称找到真爱 称是遇到感情中最美的',
+			'保护我方老板，文明参观！[加油] ',
+			'西班牙超模妮维斯现身 白色礼裙韵味十足7张',
+			'宋祖儿与菠萝合影古灵精怪 实力卖萌被赞小仙女',
+			'罕见秀恩爱！怀孕中的金泰希为Rain剧组送咖啡车',
+			'#扑通扑通少女心#究竟係少女心定回眸一笑#無論怎都美得透',
+			'海清儿子帮妈妈拎包 暖心孝顺令网友大赞6'
+		]
+	var dayImgData = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/1.jpg","img/2.jpg"];
+
+	var weekTextData=['撒谎整容卖人设 这个撞脸baby的女神为了红拼了！',
+			'杨威晒儿女其乐融融 却因调侃地震引网友不满',
+			'谁做的，站出来[微笑]#杨子姗今天穿这样#...',
+			'张柏芝家厨房曝光 烟火气十足似普通家庭',
+			'陈浩民贵州演出 赶行程一波三折',
+			'这人唱歌真的好听啊！千万别浪费了。...',
+			'明星们如何教育孩子？看海清携子细节就知道了',
+			'新版明星势力榜上线！鹿晗居7月内地榜首',
+			'贾乃亮录制短视频 助力公益“画出生命线”',
+			'张艺谋新作爱丁堡首演爆火 再度征服西方观众'
+		];
+	var weekImgData = ["img/2.jpg","img/1.jpg","img/3.jpg","img/4.jpg","img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/1.jpg","img/2.jpg"];
+	var allTextData=['ins爱豆｜宋慧乔身材有点虐 奶茶妹妹身子太软了',
+			'《死侍2》替身演员去世 为黑人女性公路赛车手',
+			'被演戏耽误的赛车手！ 法鲨现身法拉利挑战赛',
+			'喝水都会胖竟因为这个，教你一招瘦到90斤',
+			'美颜盛世！21岁小李写真曝光 影楼风依旧帅',
+			'《鲛珠传》特技出色 孟召重演绎斑点小哥哥',
+			'想喝中土咖啡！《魔戒》《霍比特人》出植物图鉴',
+			'奥斯卡影后石头酷炫摆pose 出入福建会馆',
+			'《弗罗里达计划》首曝预告 “绿魔”化身孩子王',
+			'《格蕾》主创跳槽Netflix 曾打造多部热播美剧'
+		];
+	var allImgData = ["img/3.jpg","img/2.jpg","img/1.jpg","img/4.jpg","img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/1.jpg","img/2.jpg"];
+	var oNav = document.getElementById("navigation");
+	var aNavSpan = oNav.getElementsByTagName("span");
+	var oldSpan = aNavSpan[0];
+	for(var i=0;i<aNavSpan.length;i++){
+		aNavSpan[i].index = i;
+		aNavSpan[i].onclick = function(){
+			oldSpan.setAttribute("class","");
+			this.setAttribute("class","active");
+			oldSpan = this;
+			data = tab(this.index);
+			fn(data.t,data.i)
+		}
+	} 
+
+	function tab(index){
+		var which,text,img;
+		if(!index){
+			which = "day";
+			text = dayTextData;
+			img = dayImgData;
+		}else if(index == 1){
+			which = "week";
+			text = weekTextData;
+			img = weekImgData;
+		}else{
+			which = "all";
+			text = allTextData;
+			img = allImgData;
+		}
+		var data = {w:which, t:text, i:img};
+		return data;
+	}
+
+	var oNewList = document.getElementById("newlist");
+	var len = 0;
+	function fn(textData,imgData){
+		len = textData.length;
+		var str1 = '';
+		var str2 = '';
+		var str3 = '';
+		for(var i=0;i<len;i++){
+			str3 = "<div><span>"+textData[i]+"</span><button>播放</button></div>"
+			str2 = "<div class='details'><img src="+imgData[i]+">"+str3;
+			str1 += "<li class='list'><em class='order'>"+(i+1)+"</em><span class='textDesc'>"+textData[i]+"</span>"+str2+"</div></li>";
+		}
+		oNewList.innerHTML = str1;
+
+		var aLi = document.getElementsByTagName("li");
+		aLi[0].setAttribute("class","activeList");
+		aLi[0].getElementsByClassName("textDesc")[0].style.display = "none";
+		aLi[0].getElementsByClassName("details")[0].style.display = "block";
+		oldLi = aLi[0];
+
+		for(var i=0;i<len;i++){
+			aLi[i].onmouseover = function(){
+				oldLi.setAttribute("class","list");
+				oldLi.getElementsByClassName("textDesc")[0].style.display = "block";
+				oldLi.getElementsByClassName("details")[0].style.display = "none";
+				this.setAttribute("class","activeList");
+				oldLi = this;
+				var span = this.getElementsByClassName("textDesc")[0];
+				var div = this.getElementsByClassName("details")[0];
+				span.style.display = "none";
+				div.style.display = "block";
+			}
+		}
+
+	}
+	fn(dayTextData,dayImgData);
+
+
+}
+</script>
+</body>
+</html>

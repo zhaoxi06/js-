@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,img,button,ul,li,span,p,input,em{padding: 0;margin: 0;}
+li{list-style: none;}
+#box{
+	width: 640px;
+	border:5px solid #ccc;
+	margin: 60px auto;
+}
+#showCase{
+	width: 100%;
+	height: 280px;
+	position: relative;
+}
+.list{
+	width: 150px;
+	height: 270px;
+	opacity: 1;
+	position: absolute;
+	top: 0;
+	margin: 5px;
+}
+.out{
+	width: 150px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.list div{
+	width: 100%;
+	height: 24px;
+	font-size: 0;
+}
+.list div input{
+	font-size: 14px;
+	border:1px solid #999;
+}
+.time{
+	width: 110px;
+	height: 22px;
+	margin-top: 1px;
+}
+.define{
+	width: 30px;
+	height: 24px;
+}
+.list span{
+	width: 100%;
+	height: 20px;
+	display: inline-block;
+	line-height: 20px;
+	text-align: center;
+	color: #999;
+	font-size: 12px;
+}
+.show{
+	width: 100%;
+}
+.desc{
+	width: 100%;
+	height: 32px;
+	line-height: 16px;
+	font-size: 12px;
+	color: #999;
+}
+.price{
+	color: #BD214A;
+}
+#box1,#box2 li{
+	width: 100%;
+	height: 80px;
+	background: #ccc;
+	line-height: 80px;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+#box1 span{
+	width: 240px;
+	height: 100%;
+	text-align: center;
+	display: inline-block;
+}
+#box2 li{
+	height: 160px;
+	line-height: 16px;
+	font-size: 16px;
+	font-weight: normal;
+}
+#box2 li p,#box2 li span{
+	width: 240px;
+	height: 100%;
+	display: inline-block;
+	padding: auto 0;
+}
+#box2 li span{
+	text-align: center;
+}
+#box2 li img{
+	padding: 10px;
+	vertical-align: middle;
+}
+</style>
+<script type="text/javascript" src="js/usefulFun.js"></script>
+</head>
+<body>
+<div id="box">
+	<ul id="showCase">
+		<li class="list">
+			<div>
+				<input class="time" type="text" value="October 25,2018 9:32:00">
+				<input class="define" type="button" value="确定">
+			</div>
+			<span class="countDown">剩余00天00时00分00秒</span>
+			<img class="show" src="img/tbao1.png">
+			<p class="desc">疯狂599，美的爆款隐藏式面板下拉门微波炉。</p>
+			<span>抢购价：<em class="price">599.00</em></span>
+		</li>
+		<li class="list">
+			<div>
+				<input class="time" type="text" value="October 25,2018 9:32:10">
+				<input class="define" type="button" value="确定">
+			</div>
+			<span class="countDown">剩余00天00分00秒</span>
+			<img class="show" src="img/tbao2.png">
+			<p class="desc">疯狂599，美的爆款隐藏式面板下拉门微波炉。</p>
+			<span>抢购价：<em class="price">168.99</em></span>
+		</li>
+		<li class="list">
+			<div>
+				<input class="time" type="text" value="October 25,2018 9:32:05">
+				<input class="define" type="button" value="确定">
+			</div>
+			<span class="countDown">剩余00天00分00秒</span>
+			<img class="show" src="img/tbao3.png">
+			<p class="desc">疯狂599，美的爆款隐藏式面板下拉门微波炉。</p>
+			<span>抢购价：<em class="price">3299</em></span>
+		</li>
+		<li class="list">
+			<div>
+				<input class="time" type="text" value="October 25,2018 9:32:10">
+				<input class="define" type="button" value="确定">
+			</div>
+			<span class="countDown">剩余00天00分00秒</span>
+			<img class="show" src="img/tbao4.png">
+			<p class="desc">疯狂599，美的爆款隐藏式面板下拉门微波炉。</p>
+			<span>抢购价：<em class="price">1.04</em></span>
+		</li>
+	</ul>
+	<div id="box1">
+		<span id="heading">商品名称</span>
+		<span id="priceTitle">价格</span>
+	</div>
+	<ul id="box2">
+		<!-- <li>
+			<p>疯狂599，美的爆款隐藏式面板下拉门微波炉。</p>
+			<span>599.00</span>
+			<img src="img/tbao1.png">
+		</li> -->
+	</ul>
+	<p class="footer">总价:<em id="total">0</em>元</p>
+</div>
+
+<script type="text/javascript">
+window.onload = function () {
+	var aList = document.getElementsByClassName("list");
+	var aTime = document.getElementsByClassName("time");
+	var aDefine = document.getElementsByClassName("define");
+	var aCountDown = document.getElementsByClassName("countDown");
+	var aShow = document.getElementsByClassName("show");
+	var aDesc = document.getElementsByClassName("desc");
+	var aPrice = document.getElementsByClassName("price");
+	var oBox2 = document.getElementById("box2");
+	var oTotal = document.getElementById("total");
+
+	var len = aList.length;
+	for(var i=0;i<len;i++){
+		aList[i].style.left = 155*i + "px";
+	}
+	//点击确定开始倒计时
+	for(var i=0;i<len;i++){
+		aDefine[i].index = i;
+		aDefine[i].onclick = function(){
+			var _this = this;
+			var time = aTime[this.index].value;
+			aTime[this.index].timer = setInterval(function(){
+				var cd = getCountDown(time);
+				if(!cd){
+					clearInterval(aTime[_this.index].timer);
+					cd = "剩余00天00时00分00秒";
+					shake(aList[_this.index],"top",20,function(){
+						shake(aList[_this.index],"left",20,function(){
+							doMove(aList[_this.index],"top",20,200,function(){
+								merchandise(_this.index);
+							});
+							transparency(aList[_this.index],1);
+						});
+					});
+				}
+				aCountDown[_this.index].innerHTML = cd;
+			},1000)
+		}
+	}
+	function transparency(elem,start,endFn){
+		clearInterval(elem.timer1);
+		elem.timer1 = setInterval(function(){
+			start = start - 0.1;
+			if(start<=0){
+				start = 0;
+				clearInterval(elem.timer1);
+				endFn && endFn();
+			}
+			elem.style.opacity = start;
+		},20)
+		
+	}
+	//计算剩余时间
+	function getCountDown(tFuture){
+		tFuture = new Date(tFuture);
+		var tNow = new Date();
+		var cd = Math.floor((tFuture - tNow)/1000);//毫秒转为秒
+		var str = 0;
+		if(cd){ 
+			var day = Math.floor(cd/86400);
+			var hour = Math.floor(cd%86400/3600);
+			var min = Math.floor(cd%86400%3600/60);
+			var sec = Math.floor(cd%60);
+			str = "剩余"+day+"天"+hour+"时"+min+"分"+sec+"秒";
+		}
+		return str;
+	}
+	//倒计时结束商品下架
+	function merchandise(index){
+		setTimeout(function(){
+			aList[index].style.opacity = 1;
+			aList[index].style.top = 0;
+			var data = getUsefulData(index);
+			var oImg = "<img class='out' src='img/out.png'>";
+			aList[index].innerHTML += oImg;
+			var str = "<li><p>"+data.d+"</p><span>"+data.p+"</span><img src='"+data.s+"'></li>";
+			oBox2.innerHTML += str;
+			oTotal.innerHTML = Number(oTotal.innerHTML)+Number(data.p);
+		},300);
+	}
+	//商品下架前获取有用的数据
+	function getUsefulData(index){
+		var iShow = aShow[index].src;
+		var iDesc = aDesc[index].innerHTML;
+		var iPrice = aPrice[index].innerHTML;
+		var d = {s:iShow,d:iDesc,p:iPrice};
+		return d;
+	}
+	function shake(elem,attr,extent,endFn){
+		clearInterval(elem.timer);
+		elem.timer = setInterval(function(){
+			extent = -extent;
+			var speed = parseInt(getStyle(elem,attr))+extent;
+			if(!extent){
+				clearInterval(elem.timer);
+				endFn && endFn();
+			}
+			elem.style[attr] = speed + "px";
+			if(extent>0){
+				extent --;
+			}
+		},10)
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,ul,li,div,img,button{padding: 0;margin: 0;}
+li{list-style: none;}
+#box1{
+	width: 510px;
+	height: 200px;
+	margin: 100px auto;
+}
+#tab{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+}
+li.tab{
+	width: 80px;
+	height: 100%;
+	text-align: center;
+	line-height: 30px;
+	float: left;
+	background: orange;
+	margin-right: 1px;
+	color: white;
+}
+#box2{
+	width: 500px;
+	height: 150px;
+	padding: 10px;
+	background: #179817;
+}
+#box3{
+	width: 180px;
+	height: 120px;
+	margin-right: 10px;
+	float: left;
+}
+#box3 img{
+	width: 100%;
+	height: 100%;
+}
+#box4{
+	width: 300px;
+	height: 150px;
+	float: left;
+}
+#box6{
+	width: 300px;
+	height: 120px;
+	overflow: hidden;
+	position: relative;
+}
+#box6 ul{
+	width:300px;
+	height: 120px;
+	position: absolute;
+	top: 0;
+}
+#box6 li{
+	width: 90px;
+	height: 120px;
+	/*position: absolute;*/
+	float: left;
+	margin-right: 10px;
+}
+#box6 li img{
+	width: 100%;
+	height: 100%;
+}
+#box5{
+	width: 106px;
+	height: 20px;
+	margin: 5px auto;
+}
+#box5 button{
+	width: 20px;
+	height: 20px;
+	background: green;
+	color: white;
+	display: inline-block;
+	float: left;
+	border: none;
+}
+#box5 div{
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border:1px solid;
+	float: left;
+	margin: 5px;
+}
+li.active1{
+	background: #179817;
+}
+.active2{
+	background: orange;
+}
+</style>
+<script type="text/javascript" src="js/usefulFun.js"></script>
+</head>
+<body>
+<div id="box1">
+	<ul id="tab">
+		<li class="tab active1">Tab1</li>
+		<li class="tab">Tab2</li>
+	</ul>
+	<div id="box2">
+		<div id="box3">
+			<img src="">
+		</div>
+		<div id="box4">
+			<div id="box6">
+				<!-- <ul>
+					<li><img src=""></li>
+					<li><img src=""></li>
+					<li><img src=""></li>
+				</ul> -->
+			</div>
+			<div id="box5">
+				<button><</button>
+				<div class="active2"></div>
+				<div></div>
+				<div></div>
+				<button>></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oBox3 = document.getElementById("box3");
+	var oImgShow = oBox3.getElementsByTagName("img")[0];
+	var oBox6 = document.getElementById("box6");
+	var aUl,aLi,len;
+	var aImg = oBox6.getElementsByTagName("img");
+	var aTab = document.getElementsByClassName("tab");
+	var aBtn = document.getElementsByTagName("button");
+	var oBox5 = document.getElementById("box5");
+	var aDiv = oBox5.getElementsByTagName("div");
+	oldDiv = aDiv[0];
+	var num = 0;
+
+	var data = {
+		tab1 : {
+			imgShow : ["img/littleboy.jpg"],
+			imgLi : ["img/charing/book1.jpg","img/charing/book2.jpg","img/charing/book3.jpg","img/charing/book4.jpg","img/charing/book5.jpg","img/charing/book6.jpg","img/charing/book7.jpg","img/charing/book8.jpg","img/charing/book9.jpg"]
+		},
+		tab2 : {
+			imgShow : ["img/1.jpg"],
+			imgLi : ["img/charing/book10.jpg","img/charing/book12.jpg","img/charing/book13.jpg","img/charing/book14.jpg","img/charing/book15.jpg","img/charing/book16.jpg","img/charing/book17.jpg","img/charing/book18.jpg","img/charing/book19.jpg"]
+		}
+	}
+
+	var onOff1 = true;//true——展示tab1，false_tab2
+	var onOff2 = true;
+	//根据data中img的数量来创建ul,li和img
+	var ulLen;
+	function createNode(d){
+		ulLen = d.imgLi.length / 3;
+		var str = '';
+		for(var i=0;i<ulLen;i++){
+			str += "<ul style='left:"+300*(i-1)+"px'><li><img></li><li><img></li><li><img></li></ul>";
+		}
+		oBox6.innerHTML = str;
+		aUl = oBox6.getElementsByTagName("ul");
+		aLi = oBox6.getElementsByTagName("li");
+		len = aLi.length;
+	}
+
+	init();
+	function init(){
+		var d;
+		if(onOff1){
+			d = data.tab1;
+		}else{
+			d = data.tab2;
+		}
+		createNode(d);
+		oImgShow.src= d.imgShow[0];
+		for(var i=0;i<len;i++){
+			aImg[i].src = d.imgLi[i];
+		}
+		num = 0;
+		oldDiv.className = "";
+		aDiv[num].className = "active2";
+		oldDiv = aDiv[num];
+	}
+
+	aTab[0].onclick = function(){
+		aTab[1].classList.remove("active1");
+		aTab[0].classList.add("active1");
+		onOff1 = true;
+		init();
+	}
+	aTab[1].onclick = function(){
+		aTab[0].classList.remove("active1");
+		aTab[1].classList.add("active1");
+		onOff1 = false;
+		init();
+	}
+
+	aBtn[0].onclick = function(){
+		if(!onOff2) return;
+		for(var i=0;i<ulLen;i++){
+			aUl[i].L = parseInt(getStyle(aUl[i],"left"));
+			if(i==ulLen-1){
+				doMove(aUl[i],"left",30,aUl[i].L+300,ulToFirst);
+			}else{
+				doMove(aUl[i],"left",30,aUl[i].L+300);
+			}
+		}
+		if(num==0){
+			num = ulLen;
+		}
+		num --;
+		oldDiv.className = "";
+		aDiv[num].className = "active2";
+		oldDiv = aDiv[num];
+		onOff2 = false;
+	}
+	aBtn[1].onclick = function(){
+		if(!onOff2) return;
+		for(var i=0;i<ulLen;i++){
+			aUl[i].L = parseInt(getStyle(aUl[i],"left"));
+			if(i==ulLen-1){
+				doMove(aUl[i],"left",30,aUl[i].L-300,ulToLast);
+			}else{
+				doMove(aUl[i],"left",30,aUl[i].L-300);
+			}
+		}
+		num ++;
+		num %= ulLen;
+		oldDiv.className = "";
+		aDiv[num].className = "active2";
+		oldDiv = aDiv[num];
+		onOff2 = false;
+	}
+	function ulToLast(){
+		var ul = oBox6.removeChild(aUl[0]);
+		oBox6.appendChild(ul);
+		ul.style.left = "300px";
+		onOff2 = true;
+	}
+	function ulToFirst(){
+		var ul = oBox6.removeChild(aUl[ulLen-1]);
+		oBox6.insertBefore(ul,aUl[0]);
+		ul.style.left = "-300px";
+		onOff2 = true;
+	}
+}
+</script>
+</body>
+</html>

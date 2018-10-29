@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jstest</title>
+<style type="text/css">
+body,div,ul,li,button,span,textarea{padding: 0;margin: 0;}
+li{list-style: none;}
+#box1{
+	width: 1050px;
+	height: 320px;
+	border:5px solid #ccc;
+	padding: 10px 5px;
+	margin: 20px auto;
+}
+textarea,#receive{
+	width: 450px;
+	height: 300px;
+	float: left;
+}
+#control{
+	width: 120px;
+	padding: 0 10px;
+	float: left;
+}
+#control button,#control span{
+	display: inline-block;
+	width: 100%;
+	height: 24px;
+}
+#control span{
+	text-align: center;
+	margin: 10px 0;
+}
+#progress{
+	display: none;
+}
+#control li{
+	width: 15px;
+	height: 30px;
+	background: #FFCC00;
+	margin-right: 5px;
+	float: left;
+}
+#control li.active{
+	background: orange;
+}
+#receive{
+	border:1px dashed;
+}
+</style>
+</head>
+<body>
+<div id="box1">
+	<textarea>“破土凌云节节高，寒驱三九领风骚。不流斑竹多情泪，甘为春山化雪涛。”当然，母亲屋后的竹林更不甘示弱，迅速蓄势破土而出，拔地而起以凌云之姿守望着这个夏天。这片竹林原本只是母亲庭院窗前的一颗竹子，因多年生长竹叶密集遮挡了窗的光线，无奈之下砍掉了，没想到仅仅几年之隔，竹根便以迅雷不及掩耳之势，向东向西迅速扩展到了院墙外的一片空地上，于是便有了这片如同人工种植一般的茂盛修长的悠悠竹林了。</textarea>
+	<div id="control">
+		<button>把文字右移</button>
+		<span>0/0</span>
+		<ul id="progress">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<div id="receive"></div>
+</div>
+
+<script type="text/javascript">
+window.onload = function(){
+	var oReceive = document.getElementById("receive");
+	var oBtn = document.getElementsByTagName("button")[0];
+	var oSpan = document.getElementsByTagName("span")[0];
+	var oUl = document.getElementById("progress");
+	var aLi = document.getElementsByTagName("li");
+
+	var oldLi = aLi[0];
+	var num = 0;
+	oBtn.onclick = function(){
+		var oText = document.getElementsByTagName("textarea")[0];
+		var textLen = oText.value.length;
+		oUl.style.display = "block";
+		var timer = setInterval(function(){
+			num ++;
+			if(num==textLen){
+				clearInterval(timer);
+				oUl.style.display = "none";
+			}
+			var str = oText.value;
+			var text = str.substring(0,1);	
+			var rec = str.substring(1);
+			oText.value = rec;
+			oReceive.innerHTML += text;
+			oSpan.innerHTML = num + "/" + textLen;
+			oldLi.className = "";
+			aLi[num%aLi.length].className = "active";
+			oldLi = aLi[num%aLi.length];
+		},20)
+	}
+	
+}
+</script>
+</body>
+</html>
